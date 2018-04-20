@@ -1,16 +1,423 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <stetic-interface>
+  <configuration>
+    <images-root-path>..</images-root-path>
+    <target-gtk-version>2.12</target-gtk-version>
+  </configuration>
   <import>
-    <widget-library name="glade-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <widget-library name="../bin/Debug/PictureMason.exe" internal="true" />
+    <widget-library name="glade-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
   </import>
-  <widget class="Gtk.Window" id="MainWindow" design-size="400 300">
+  <widget class="Gtk.Window" id="MainWindow" design-size="846 695">
+    <action-group name="Default">
+      <action id="FileAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">File</property>
+        <property name="ShortLabel" translatable="yes">File</property>
+      </action>
+      <action id="dialogQuestionAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">Quit</property>
+        <property name="ShortLabel" translatable="yes">Quit</property>
+        <property name="StockId">gtk-dialog-question</property>
+      </action>
+      <action id="zoomInAction1">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes" />
+        <property name="StockId">gtk-zoom-in</property>
+      </action>
+      <action id="zoomInAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes" />
+        <property name="StockId">gtk-zoom-in</property>
+      </action>
+      <action id="zoomOutAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes" />
+        <property name="StockId">gtk-zoom-out</property>
+      </action>
+      <action id="zoomOutAction1">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes" />
+        <property name="StockId">gtk-zoom-out</property>
+      </action>
+      <action id="AboutAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">About</property>
+        <property name="ShortLabel" translatable="yes">About</property>
+      </action>
+      <action id="MainmenuHelpAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">Help</property>
+        <property name="ShortLabel" translatable="yes">Help</property>
+        <property name="StockId">gtk-help</property>
+      </action>
+      <action id="helpAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">About</property>
+        <property name="ShortLabel" translatable="yes">About</property>
+        <property name="StockId">gtk-help</property>
+        <signal name="Activated" handler="ShowAbout" />
+      </action>
+      <action id="quitAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">_Quit</property>
+        <property name="ShortLabel" translatable="yes">_Quit</property>
+        <property name="StockId">gtk-quit</property>
+        <signal name="Activated" handler="QuitRequested" />
+      </action>
+      <action id="protectedVoidOnDeleteEventObjectSenderDeleteEventArgsAApplicationQuitARetValTrueAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">protected void OnDeleteEvent(object sender, DeleteEventArgs a)
+	{
+		Application.Quit();
+		a.RetVal = true;
+	}
+
+
+</property>
+        <property name="ShortLabel" translatable="yes">protected void OnDeleteEvent(object sender, DeleteEventArgs a)
+	{
+		Application.Quit();
+		a.RetVal = true;
+	}
+
+
+</property>
+      </action>
+      <action id="protectedVoidOnDeleteEventObjectSenderDeleteEventArgsAApplicationQuitARetValTrueAction1">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">protected void OnDeleteEvent(object sender, DeleteEventArgs a)
+	{
+		Application.Quit();
+		a.RetVal = true;
+	}
+
+
+</property>
+        <property name="ShortLabel" translatable="yes">protected void OnDeleteEvent(object sender, DeleteEventArgs a)
+	{
+		Application.Quit();
+		a.RetVal = true;
+	}
+
+
+</property>
+      </action>
+      <action id="MenuoptionAbout">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">About</property>
+        <property name="ShortLabel" translatable="yes">About</property>
+        <property name="StockId">gtk-about</property>
+        <signal name="Activated" handler="ShowAbout" after="yes" />
+      </action>
+    </action-group>
     <property name="MemberName" />
     <property name="Title" translatable="yes">MainWindow</property>
     <property name="WindowPosition">CenterOnParent</property>
     <signal name="DeleteEvent" handler="OnDeleteEvent" />
     <child>
-      <placeholder />
+      <widget class="Gtk.VBox" id="OuterVBox">
+        <property name="MemberName" />
+        <property name="Spacing">6</property>
+        <child>
+          <widget class="Gtk.MenuBar" id="ProgramMenubar">
+            <property name="MemberName" />
+            <node name="ProgramMenubar" type="Menubar">
+              <node type="Menu" action="FileAction">
+                <node type="Menuitem" action="quitAction" />
+              </node>
+              <node type="Menu" action="MainmenuHelpAction">
+                <node type="Menuitem" action="MenuoptionAbout" />
+              </node>
+            </node>
+          </widget>
+          <packing>
+            <property name="Position">0</property>
+            <property name="AutoSize">False</property>
+            <property name="Expand">False</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.VPaned" id="MainVPaneD">
+            <property name="MemberName" />
+            <property name="CanFocus">True</property>
+            <property name="Position">465</property>
+            <child>
+              <widget class="Gtk.Notebook" id="MainTabNotebook">
+                <property name="MemberName" />
+                <property name="CanFocus">True</property>
+                <property name="CurrentPage">1</property>
+                <child>
+                  <widget class="Gtk.HPaned" id="WorkbenchHPaneD">
+                    <property name="MemberName" />
+                    <property name="CanFocus">True</property>
+                    <property name="Position">402</property>
+                    <child>
+                      <widget class="Gtk.VPaned" id="WorkbenchLeftVPaneD">
+                        <property name="MemberName" />
+                        <property name="CanFocus">True</property>
+                        <property name="Position">212</property>
+                        <child>
+                          <widget class="Gtk.FileChooserWidget" id="InputImageFileSelector">
+                            <property name="MemberName" />
+                          </widget>
+                          <packing>
+                            <property name="Resize">False</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <widget class="Gtk.VBox" id="InputImageVBox">
+                            <property name="MemberName" />
+                            <property name="Spacing">6</property>
+                            <child>
+                              <widget class="Gtk.Toolbar" id="InputImageToolbar">
+                                <property name="MemberName" />
+                                <property name="ShowArrow">False</property>
+                                <node name="InputImageToolbar" type="Toolbar">
+                                  <node type="Toolitem" action="zoomInAction" />
+                                  <node type="Toolitem" action="zoomOutAction" />
+                                </node>
+                              </widget>
+                              <packing>
+                                <property name="Position">0</property>
+                                <property name="AutoSize">True</property>
+                                <property name="Expand">False</property>
+                                <property name="Fill">False</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <widget class="Gtk.ScrolledWindow" id="InputimageWindow">
+                                <property name="MemberName" />
+                                <property name="CanFocus">True</property>
+                                <property name="ShadowType">In</property>
+                                <child>
+                                  <widget class="Gtk.Viewport" id="GtkViewport2">
+                                    <property name="MemberName" />
+                                    <property name="ShadowType">None</property>
+                                    <child>
+                                      <widget class="Gtk.Image" id="InputImageDisplay">
+                                        <property name="MemberName" />
+                                      </widget>
+                                    </child>
+                                  </widget>
+                                </child>
+                              </widget>
+                              <packing>
+                                <property name="Position">1</property>
+                                <property name="AutoSize">True</property>
+                              </packing>
+                            </child>
+                          </widget>
+                        </child>
+                      </widget>
+                      <packing>
+                        <property name="Resize">False</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <widget class="Gtk.VPaned" id="WorkbenchRightVPaneD">
+                        <property name="MemberName" />
+                        <property name="CanFocus">True</property>
+                        <property name="Position">213</property>
+                        <child>
+                          <widget class="Gtk.ComboBox" id="TilesetSelector">
+                            <property name="MemberName" />
+                            <property name="IsTextCombo">True</property>
+                            <property name="Items" translatable="yes" />
+                          </widget>
+                          <packing>
+                            <property name="Resize">False</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <widget class="Gtk.VBox" id="PreviewImageVBox">
+                            <property name="MemberName" />
+                            <property name="Spacing">6</property>
+                            <child>
+                              <widget class="Gtk.Toolbar" id="PreviewImageToolbar">
+                                <property name="MemberName" />
+                                <property name="ShowArrow">False</property>
+                                <node name="PreviewImageToolbar" type="Toolbar">
+                                  <node type="Toolitem" action="zoomInAction1" />
+                                  <node type="Toolitem" action="zoomOutAction1" />
+                                </node>
+                              </widget>
+                              <packing>
+                                <property name="Position">0</property>
+                                <property name="AutoSize">True</property>
+                                <property name="Expand">False</property>
+                                <property name="Fill">False</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <widget class="Gtk.ScrolledWindow" id="PreviewImageWindow">
+                                <property name="MemberName" />
+                                <property name="CanFocus">True</property>
+                                <property name="ShadowType">In</property>
+                                <child>
+                                  <widget class="Gtk.Viewport" id="GtkViewport">
+                                    <property name="MemberName" />
+                                    <property name="ShadowType">None</property>
+                                    <child>
+                                      <widget class="Gtk.Image" id="PreviewImageDisplay">
+                                        <property name="MemberName" />
+                                      </widget>
+                                    </child>
+                                  </widget>
+                                </child>
+                              </widget>
+                              <packing>
+                                <property name="Position">1</property>
+                                <property name="AutoSize">True</property>
+                              </packing>
+                            </child>
+                          </widget>
+                        </child>
+                      </widget>
+                    </child>
+                  </widget>
+                </child>
+                <child>
+                  <widget class="Gtk.Label" id="WorkbenchTab">
+                    <property name="MemberName" />
+                    <property name="LabelProp" translatable="yes">Workbench</property>
+                  </widget>
+                  <packing>
+                    <property name="type">tab</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="Gtk.ScrolledWindow" id="GtkScrolledWindow3">
+                    <property name="MemberName" />
+                    <property name="ShadowType">In</property>
+                    <child>
+                      <widget class="Gtk.TextView" id="TilesetTextContent">
+                        <property name="MemberName" />
+                        <property name="CanFocus">True</property>
+                        <property name="ShowScrollbars">True</property>
+                        <property name="Text" translatable="yes" />
+                      </widget>
+                    </child>
+                  </widget>
+                  <packing>
+                    <property name="Position">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="Gtk.Label" id="TilesetsTab">
+                    <property name="MemberName" />
+                    <property name="LabelProp" translatable="yes">Tilesets</property>
+                    <property name="MnemonicWidget">label2</property>
+                  </widget>
+                  <packing>
+                    <property name="type">tab</property>
+                  </packing>
+                </child>
+                <child>
+                  <placeholder />
+                </child>
+                <child>
+                  <widget class="Gtk.Label" id="ExportTab">
+                    <property name="MemberName" />
+                    <property name="LabelProp" translatable="yes">Export</property>
+                  </widget>
+                  <packing>
+                    <property name="type">tab</property>
+                  </packing>
+                </child>
+              </widget>
+              <packing>
+                <property name="Resize">False</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="Gtk.ScrolledWindow" id="GtkScrolledWindow2">
+                <property name="MemberName" />
+                <property name="ShadowType">In</property>
+                <child>
+                  <widget class="Gtk.TextView" id="MessagesBox">
+                    <property name="MemberName" />
+                    <property name="ShowScrollbars">True</property>
+                    <property name="Text" translatable="yes" />
+                  </widget>
+                </child>
+              </widget>
+            </child>
+          </widget>
+          <packing>
+            <property name="PackType">End</property>
+            <property name="Position">1</property>
+            <property name="AutoSize">True</property>
+          </packing>
+        </child>
+      </widget>
+    </child>
+  </widget>
+  <widget class="Gtk.Dialog" id="PictureMason.AboutDialog" design-size="584 431">
+    <property name="MemberName" />
+    <property name="WindowPosition">CenterOnParent</property>
+    <property name="Buttons">1</property>
+    <property name="HelpButton">False</property>
+    <child internal-child="VBox">
+      <widget class="Gtk.VBox" id="dialog1_VBox">
+        <property name="MemberName" />
+        <property name="BorderWidth">2</property>
+        <child>
+          <widget class="Gtk.TextView" id="textview3">
+            <property name="MemberName" />
+            <property name="CanFocus">True</property>
+            <property name="Text" translatable="yes">/* 
+ * Copyright (C) 2018 Erik Mossberg
+ *
+ * This file is part of PictureMason.
+ *
+ * PictureMason is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *  
+ * PictureMason is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;. 
+ * 
+ */</property>
+          </widget>
+          <packing>
+            <property name="Position">0</property>
+            <property name="AutoSize">True</property>
+          </packing>
+        </child>
+      </widget>
+    </child>
+    <child internal-child="ActionArea">
+      <widget class="Gtk.HButtonBox" id="dialog1_ActionArea">
+        <property name="MemberName" />
+        <property name="Spacing">10</property>
+        <property name="BorderWidth">5</property>
+        <property name="Size">1</property>
+        <property name="LayoutStyle">End</property>
+        <child>
+          <widget class="Gtk.Button" id="buttonOk">
+            <property name="MemberName" />
+            <property name="CanDefault">True</property>
+            <property name="CanFocus">True</property>
+            <property name="UseStock">True</property>
+            <property name="Type">StockItem</property>
+            <property name="StockId">gtk-ok</property>
+            <property name="ResponseId">-5</property>
+            <property name="label">gtk-ok</property>
+          </widget>
+          <packing>
+            <property name="Expand">False</property>
+            <property name="Fill">False</property>
+          </packing>
+        </child>
+      </widget>
     </child>
   </widget>
 </stetic-interface>

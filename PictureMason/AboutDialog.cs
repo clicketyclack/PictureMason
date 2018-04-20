@@ -18,31 +18,13 @@
  * 
  */
 using System;
-using Gtk;
-
-public partial class MainWindow : Gtk.Window
+namespace PictureMason
 {
-	public MainWindow() : base(Gtk.WindowType.Toplevel)
+	public partial class AboutDialog : Gtk.Dialog
 	{
-		Build();
-	}
-
-	protected void OnDeleteEvent(object sender, DeleteEventArgs a)
-	{
-		Application.Quit();
-		a.RetVal = true;
-	}
-
-	protected void ShowAbout(object sender, EventArgs e)
-	{
-		var about = new AboutDialog();
-		about.Run();
-		about.Destroy();
-	}
-
-	protected void QuitRequested(object sender, EventArgs e)
-	{
-		Application.Quit();
-	
+		public AboutDialog()
+		{
+			this.Build();
+		}
 	}
 }
