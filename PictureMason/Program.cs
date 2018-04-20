@@ -19,6 +19,7 @@
  */
 using System;
 using Gtk;
+using TileExchange;
 
 namespace PictureMason
 {
@@ -26,6 +27,9 @@ namespace PictureMason
 	{
 		public static void Main(string[] args)
 		{
+
+			var tsf = new TileExchange.TileSetFinder.TileSetFinder();
+
 			Application.Init();
 			MainWindow win = new MainWindow();
 			win.Show();
