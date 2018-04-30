@@ -18,22 +18,25 @@
  * 
  */
 using System;
-using Gtk;
-
-
 namespace PictureMason
 {
-	class MainClass
-	{
-		public static void Main(string[] args)
-		{
-			Application.Init();
-			MainWindow win = new MainWindow();
-			var update_watcher = new WindowUpdater();
-			win.RegisterUpdateWatcher(update_watcher);
 
-			win.Show();
-			Application.Run();
+	/// <summary>
+	/// Window updater. A class that primarily exists to move logic out of GUI classes, especially the MainWindow.
+	/// </summary>
+	public class WindowUpdater
+	{
+		public WindowUpdater()
+		{
+			
+		}
+
+		/// <summary>
+		/// Notify updater that a new input image was selected.
+		/// </summary>
+		/// <param name="new_selection">New selection (abspath filename).</param>
+		public void InputImageSelectionChanged(String new_selection) {
+			
 		}
 	}
 }

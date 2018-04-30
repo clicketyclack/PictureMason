@@ -18,12 +18,15 @@
  * 
  */
 using System;
+using System.IO;
 using Gtk;
 using TileExchange.TileSetRepo;
 using TileExchange.TileSetTypes;
 using TileExchange.ExchangeEngine;
 using TileExchange.TesselatedImages;
+using System.Collections.Generic;
 
+using PictureMason;
 
 public partial class MainWindow : Gtk.Window
 {
@@ -32,12 +35,14 @@ public partial class MainWindow : Gtk.Window
 	private Boolean NeedsUpdate;
 	private String InputImageName;
 	private TileSetRepo tsr;
+	private List<WindowUpdater> listeners;
 
 	public MainWindow() : base(Gtk.WindowType.Toplevel)
 	{
 		Build();
 		tsr = new TileSetRepo();
 		this.NeedsUpdate = true;
+		listeners = new List<WindowUpdater>();
 		LazyUpdate();
 	}
 
@@ -49,7 +54,7 @@ public partial class MainWindow : Gtk.Window
 
 	protected void ShowAbout(object sender, EventArgs e)
 	{
-		var about = new AboutDialog();
+		var about = new PictureMason.AboutDialog();
 		about.Run();
 		about.Destroy();
 	}
@@ -63,6 +68,12 @@ public partial class MainWindow : Gtk.Window
 	protected void LazyUpdate() {
 
 		if (!NeedsUpdate) {
+			return;
+		}
+
+		if (InputImageName is null ||
+		    !File.Exists(InputImageName)) {
+			NeedsUpdate = false;
 			return;
 		}
 
@@ -114,6 +125,11 @@ public partial class MainWindow : Gtk.Window
 		System.Console.WriteLine("Setting preview image from {0} with event {1} to filename {2}", sender.ToString(), e.ToString(), name);
 
 		try {
+
+			foreach (WindowUpdater wu in listeners) {
+				wu.InputImageSelectionChanged(name);
+			}
+
 			InputImageName = name;
 		} catch (Exception exx) {
 			System.Console.WriteLine("Setting image caused exception {0} for {1} ", exx.ToString(), name);
@@ -121,5 +137,10 @@ public partial class MainWindow : Gtk.Window
 
 		NeedsUpdate = true;
 		LazyUpdate();
+	}
+
+	internal void RegisterUpdateWatcher(WindowUpdater update_watcher)
+	{
+		listeners.Add(update_watcher);	
 	}
 }
