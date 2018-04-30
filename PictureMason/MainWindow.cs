@@ -43,6 +43,24 @@ public partial class MainWindow : Gtk.Window
 	protected void QuitRequested(object sender, EventArgs e)
 	{
 		Application.Quit();
-	
+	}
+
+	protected void OnInputImageFileSelectorSelectionChanged(object sender, EventArgs e)
+	{
+		var aswidget = (Gtk.FileChooserWidget)sender;
+		var name = aswidget.Filename;
+		System.Console.WriteLine("Setting preview image from {0} with event {1} to filename {2}", sender.ToString(), e.ToString(), name);
+
+		try {
+
+			var buffer = System.IO.File.ReadAllBytes(name);
+			var pixbuf = new Gdk.Pixbuf(buffer);
+			var image = new Gtk.Image(pixbuf);
+
+			InputImageDisplay.Pixbuf = pixbuf;
+			InputImageDisplay.Show();
+		} catch (Exception exx) {
+			System.Console.WriteLine("Setting image caused exception {0} for {1} ", exx.ToString(), name);
+		}
 	}
 }

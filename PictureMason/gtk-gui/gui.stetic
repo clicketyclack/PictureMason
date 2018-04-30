@@ -5,8 +5,8 @@
     <target-gtk-version>2.12</target-gtk-version>
   </configuration>
   <import>
-    <widget-library name="../bin/Debug/PictureMason.exe" internal="true" />
     <widget-library name="glade-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <widget-library name="../bin/Release/PictureMason.exe" internal="true" />
   </import>
   <widget class="Gtk.Window" id="MainWindow" design-size="846 695">
     <action-group name="Default">
@@ -147,7 +147,7 @@
               <widget class="Gtk.Notebook" id="MainTabNotebook">
                 <property name="MemberName" />
                 <property name="CanFocus">True</property>
-                <property name="CurrentPage">1</property>
+                <property name="CurrentPage">0</property>
                 <child>
                   <widget class="Gtk.HPaned" id="WorkbenchHPaneD">
                     <property name="MemberName" />

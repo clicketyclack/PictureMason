@@ -152,7 +152,7 @@ public partial class MainWindow
 		this.MainTabNotebook = new global::Gtk.Notebook();
 		this.MainTabNotebook.CanFocus = true;
 		this.MainTabNotebook.Name = "MainTabNotebook";
-		this.MainTabNotebook.CurrentPage = 1;
+		this.MainTabNotebook.CurrentPage = 0;
 		// Container child MainTabNotebook.Gtk.Notebook+NotebookChild
 		this.WorkbenchHPaneD = new global::Gtk.HPaned();
 		this.WorkbenchHPaneD.CanFocus = true;
@@ -312,5 +312,6 @@ public partial class MainWindow
 		this.helpAction.Activated += new global::System.EventHandler(this.ShowAbout);
 		this.quitAction.Activated += new global::System.EventHandler(this.QuitRequested);
 		this.MenuoptionAbout.Activated += new global::System.EventHandler(this.ShowAbout);
+		this.InputImageFileSelector.SelectionChanged += new global::System.EventHandler(this.OnInputImageFileSelectorSelectionChanged);
 	}
 }
