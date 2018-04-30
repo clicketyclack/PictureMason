@@ -161,6 +161,7 @@
                         <child>
                           <widget class="Gtk.FileChooserWidget" id="InputImageFileSelector">
                             <property name="MemberName" />
+                            <signal name="SelectionChanged" handler="OnInputImageFileSelectorSelectionChanged" />
                           </widget>
                           <packing>
                             <property name="Resize">False</property>
