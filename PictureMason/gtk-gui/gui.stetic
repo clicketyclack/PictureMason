@@ -8,7 +8,7 @@
     <widget-library name="glade-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <widget-library name="../bin/Release/PictureMason.exe" internal="true" />
   </import>
-  <widget class="Gtk.Window" id="MainWindow" design-size="846 695">
+  <widget class="Gtk.Window" id="MainWindow" design-size="981 891">
     <action-group name="Default">
       <action id="FileAction">
         <property name="Type">Action</property>
@@ -142,7 +142,7 @@
           <widget class="Gtk.VPaned" id="MainVPaneD">
             <property name="MemberName" />
             <property name="CanFocus">True</property>
-            <property name="Position">465</property>
+            <property name="Position">646</property>
             <child>
               <widget class="Gtk.Notebook" id="MainTabNotebook">
                 <property name="MemberName" />
@@ -152,12 +152,12 @@
                   <widget class="Gtk.HPaned" id="WorkbenchHPaneD">
                     <property name="MemberName" />
                     <property name="CanFocus">True</property>
-                    <property name="Position">402</property>
+                    <property name="Position">502</property>
                     <child>
                       <widget class="Gtk.VPaned" id="WorkbenchLeftVPaneD">
                         <property name="MemberName" />
                         <property name="CanFocus">True</property>
-                        <property name="Position">212</property>
+                        <property name="Position">274</property>
                         <child>
                           <widget class="Gtk.FileChooserWidget" id="InputImageFileSelector">
                             <property name="MemberName" />
@@ -220,7 +220,7 @@
                       <widget class="Gtk.VPaned" id="WorkbenchRightVPaneD">
                         <property name="MemberName" />
                         <property name="CanFocus">True</property>
-                        <property name="Position">213</property>
+                        <property name="Position">49</property>
                         <child>
                           <widget class="Gtk.ComboBox" id="TilesetSelector">
                             <property name="MemberName" />

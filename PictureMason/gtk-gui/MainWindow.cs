@@ -147,7 +147,7 @@ public partial class MainWindow
 		this.MainVPaneD = new global::Gtk.VPaned();
 		this.MainVPaneD.CanFocus = true;
 		this.MainVPaneD.Name = "MainVPaneD";
-		this.MainVPaneD.Position = 465;
+		this.MainVPaneD.Position = 646;
 		// Container child MainVPaneD.Gtk.Paned+PanedChild
 		this.MainTabNotebook = new global::Gtk.Notebook();
 		this.MainTabNotebook.CanFocus = true;
@@ -157,12 +157,12 @@ public partial class MainWindow
 		this.WorkbenchHPaneD = new global::Gtk.HPaned();
 		this.WorkbenchHPaneD.CanFocus = true;
 		this.WorkbenchHPaneD.Name = "WorkbenchHPaneD";
-		this.WorkbenchHPaneD.Position = 402;
+		this.WorkbenchHPaneD.Position = 502;
 		// Container child WorkbenchHPaneD.Gtk.Paned+PanedChild
 		this.WorkbenchLeftVPaneD = new global::Gtk.VPaned();
 		this.WorkbenchLeftVPaneD.CanFocus = true;
 		this.WorkbenchLeftVPaneD.Name = "WorkbenchLeftVPaneD";
-		this.WorkbenchLeftVPaneD.Position = 212;
+		this.WorkbenchLeftVPaneD.Position = 274;
 		// Container child WorkbenchLeftVPaneD.Gtk.Paned+PanedChild
 		this.InputImageFileSelector = new global::Gtk.FileChooserWidget(((global::Gtk.FileChooserAction)(0)));
 		this.InputImageFileSelector.Name = "InputImageFileSelector";
@@ -209,7 +209,7 @@ public partial class MainWindow
 		this.WorkbenchRightVPaneD = new global::Gtk.VPaned();
 		this.WorkbenchRightVPaneD.CanFocus = true;
 		this.WorkbenchRightVPaneD.Name = "WorkbenchRightVPaneD";
-		this.WorkbenchRightVPaneD.Position = 213;
+		this.WorkbenchRightVPaneD.Position = 49;
 		// Container child WorkbenchRightVPaneD.Gtk.Paned+PanedChild
 		this.TilesetSelector = global::Gtk.ComboBox.NewText();
 		this.TilesetSelector.Name = "TilesetSelector";
@@ -305,8 +305,8 @@ public partial class MainWindow
 		{
 			this.Child.ShowAll();
 		}
-		this.DefaultWidth = 846;
-		this.DefaultHeight = 695;
+		this.DefaultWidth = 981;
+		this.DefaultHeight = 891;
 		this.Show();
 		this.DeleteEvent += new global::Gtk.DeleteEventHandler(this.OnDeleteEvent);
 		this.helpAction.Activated += new global::System.EventHandler(this.ShowAbout);

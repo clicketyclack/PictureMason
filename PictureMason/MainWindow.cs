@@ -33,6 +33,9 @@ public partial class MainWindow : Gtk.Window
 	{
 		Build();
 		listeners = new List<WindowUpdater>();
+		TilesetSelector.InsertText(0, "(None)");
+		TilesetSelector.Active = 0;
+		MainTabNotebook.Page = 0;
 	}
 
 	protected void OnDeleteEvent(object sender, DeleteEventArgs a)
