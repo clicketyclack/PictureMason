@@ -18,6 +18,11 @@
  * 
  */
 using System;
+using System.IO;
+using TileExchange.TileSetRepo;
+using TileExchange.TileSetTypes;
+using TileExchange.TesselatedImages;
+
 namespace PictureMason
 {
 
@@ -26,9 +31,16 @@ namespace PictureMason
 	/// </summary>
 	public class WindowUpdater
 	{
+
+		private Boolean NeedsUpdate;
+		private TileSetRepo tsr;
+		private String InputImageName;
+		private MainWindow win;
+
 		public WindowUpdater()
 		{
-			
+			LazyUpdate();
+
 		}
 
 		/// <summary>
@@ -36,7 +48,75 @@ namespace PictureMason
 		/// </summary>
 		/// <param name="new_selection">New selection (abspath filename).</param>
 		public void InputImageSelectionChanged(String new_selection) {
+			InputImageName = new_selection;
+			tsr = new TileSetRepo();
+			this.NeedsUpdate = true;
+
+			LazyUpdate();
+		}
+
+
+		// Lazy.
+		protected void LazyUpdate()
+		{
+
+			if (!NeedsUpdate)
+			{
+				return;
+			}
+
+			if (InputImageName is null ||
+				!File.Exists(InputImageName))
+			{
+				NeedsUpdate = false;
+				return;
+			}
+
+			tsr.Discover();
+			var tset = tsr.TileSet(0);
+			System.Console.WriteLine("TSR loaded {0} tilesets.", tsr.NumberOfTilesets());
+
+			try
+			{
+
+				var buffer = System.IO.File.ReadAllBytes(InputImageName);
+				var pixbuf = new Gdk.Pixbuf(buffer);
+				var image = new Gtk.Image(pixbuf);
+
+				win.SetOutputPixbuf(pixbuf);
 			
+
+			}
+			catch (Exception exx)
+			{
+				System.Console.WriteLine("LazyUpdate could not update image, caused exception {0} for {1} ", exx.ToString(), InputImageName);
+			}
+
+			try
+			{
+
+				var tesser = new Basic16Tesselator();
+				var loader = new TesselatedImageLoader();
+
+				var loaded_image = loader.LoadFromImagelibrary(InputImageName, tesser);
+				var writer = new ImageWriter();
+
+				new TileExchange.BasicExchangeEngine((IHueMatchingTileset)tset, loaded_image).run();
+				var assembled_bitmap_pre = loaded_image.AssembleFragments();
+				writer.WriteBitmap(assembled_bitmap_pre, System.IO.Path.Combine("/tmp", "foo.png"));
+
+			}
+			catch (Exception exx)
+			{
+				System.Console.WriteLine("LazyUpdate could not generate image, caused exception {0} for {1} ", exx.ToString(), InputImageName);
+			}
+
+
+		}
+
+		internal void AddUpdateTarget(MainWindow win)
+		{
+			this.win = win;
 		}
 	}
 }

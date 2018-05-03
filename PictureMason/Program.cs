@@ -31,6 +31,7 @@ namespace PictureMason
 			MainWindow win = new MainWindow();
 			var update_watcher = new WindowUpdater();
 			win.RegisterUpdateWatcher(update_watcher);
+			update_watcher.AddUpdateTarget(win);
 
 			win.Show();
 			Application.Run();
