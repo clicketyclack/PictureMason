@@ -313,5 +313,6 @@ public partial class MainWindow
 		this.quitAction.Activated += new global::System.EventHandler(this.QuitRequested);
 		this.MenuoptionAbout.Activated += new global::System.EventHandler(this.ShowAbout);
 		this.InputImageFileSelector.SelectionChanged += new global::System.EventHandler(this.OnInputImageFileSelectorSelectionChanged);
+		this.TilesetSelector.Changed += new global::System.EventHandler(this.OnTilesetSelectorChanged);
 	}
 }

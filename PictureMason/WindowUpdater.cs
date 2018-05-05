@@ -18,6 +18,7 @@
  * 
  */
 using System;
+using System.Collections.Generic;
 using System.IO;
 using TileExchange.TileSetRepo;
 using TileExchange.TileSetTypes;
@@ -35,11 +36,15 @@ namespace PictureMason
 		private Boolean NeedsUpdate;
 		private TileSetRepo tsr;
 		private String InputImageName;
-		private MainWindow win;
+		private ITileSet TileSet;
+		private List<MainWindow> update_targets;
 
 		public WindowUpdater()
 		{
-			LazyUpdate();
+			tsr = new TileSetRepo();
+			tsr.Discover();
+			TileSet = null;
+			update_targets = new List<MainWindow>();
 
 		}
 
@@ -49,11 +54,25 @@ namespace PictureMason
 		/// <param name="new_selection">New selection (abspath filename).</param>
 		public void InputImageSelectionChanged(String new_selection) {
 			InputImageName = new_selection;
-			tsr = new TileSetRepo();
+
 			this.NeedsUpdate = true;
+			LazyUpdate();
+		}
+
+		/// <summary>
+		/// Notifies the WindowUpdater that the tileset selection changed.
+		/// </summary>
+		/// <param name="new_selection">New selection.</param>
+		public void TilesetSelectionChanged(String new_selection) {
+			var tsets = tsr.ByName(new_selection);
+			if (tsets.Count == 1) {
+				TileSet = tsets[0];
+				this.NeedsUpdate = true;
+			}
 
 			LazyUpdate();
 		}
+
 
 
 		// Lazy.
@@ -66,14 +85,13 @@ namespace PictureMason
 			}
 
 			if (InputImageName is null ||
+			    TileSet is null ||
 				!File.Exists(InputImageName))
 			{
 				NeedsUpdate = false;
 				return;
 			}
 
-			tsr.Discover();
-			var tset = tsr.TileSet(0);
 			System.Console.WriteLine("TSR loaded {0} tilesets.", tsr.NumberOfTilesets());
 
 			try
@@ -83,8 +101,10 @@ namespace PictureMason
 				var pixbuf = new Gdk.Pixbuf(buffer);
 				var image = new Gtk.Image(pixbuf);
 
-				win.SetOutputPixbuf(pixbuf);
-			
+				foreach (var win in update_targets)
+				{
+					win.SetOutputPixbuf(pixbuf);
+				}
 
 			}
 			catch (Exception exx)
@@ -101,9 +121,11 @@ namespace PictureMason
 				var loaded_image = loader.LoadFromImagelibrary(InputImageName, tesser);
 				var writer = new ImageWriter();
 
-				new TileExchange.BasicExchangeEngine((IHueMatchingTileset)tset, loaded_image).run();
+				new TileExchange.BasicExchangeEngine((IHueMatchingTileset)TileSet, loaded_image).run();
 				var assembled_bitmap_pre = loaded_image.AssembleFragments();
 				writer.WriteBitmap(assembled_bitmap_pre, System.IO.Path.Combine("/tmp", "foo.png"));
+
+
 
 			}
 			catch (Exception exx)
@@ -114,9 +136,38 @@ namespace PictureMason
 
 		}
 
-		internal void AddUpdateTarget(MainWindow win)
+		/// <summary>
+		/// Adds an update target.
+		/// </summary>
+		/// <param name="new_win">New window.</param>
+		internal void AddUpdateTarget(MainWindow new_win)
 		{
-			this.win = win;
+			try
+			{
+				this.update_targets.Add(new_win);
+				RepopulateTilesetLists();
+			} catch (Exception exx) {
+				System.Console.WriteLine("AddUpdateTarget could not add Window {0}, caused exception {1} ", new_win, exx.ToString());
+			}
+
 		}
+
+		/// <summary>
+		/// Repopulates the tileset lists for our update targets.
+		/// </summary>
+		private void RepopulateTilesetLists() 
+		{
+			if (update_targets != null && tsr != null) {
+				var names = tsr.ListTilesetNames();
+				System.Console.WriteLine("RepopulateTilesetLists() will populate {0} tilesets.", names.Count);
+				foreach (var win in update_targets)
+				{
+					win.SetTilesetSelectorOptions(names);
+				}
+			} else {
+				System.Console.WriteLine("RepopulateTilesetLists() skipped as one of win = '{0}' and TileSetRepo = '{1}' is null.", update_targets, tsr);
+			}
+		}
+
 	}
 }

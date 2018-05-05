@@ -33,9 +33,9 @@ public partial class MainWindow : Gtk.Window
 	{
 		Build();
 		listeners = new List<WindowUpdater>();
-		TilesetSelector.InsertText(0, "(None)");
-		TilesetSelector.Active = 0;
 		MainTabNotebook.Page = 0;
+
+		SetTilesetSelectorOptions(new List<string>());
 	}
 
 	protected void OnDeleteEvent(object sender, DeleteEventArgs a)
@@ -70,7 +70,6 @@ public partial class MainWindow : Gtk.Window
 				wu.InputImageSelectionChanged(name);
 			}
 
-
 		} catch (Exception exx) {
 			System.Console.WriteLine("Setting image caused exception {0} for {1} ", exx.ToString(), name);
 		}
@@ -90,5 +89,47 @@ public partial class MainWindow : Gtk.Window
 	{
 		InputImageDisplay.Pixbuf = pixbuf;
 		InputImageDisplay.Show();
+	}
+
+	public void SetTilesetSelectorOptions(List<String> options)
+	{
+
+		while (TilesetSelector.ActiveText != null)
+		{
+			System.Console.WriteLine("Removing from cell cound {0}", TilesetSelector.Cells.Length);
+
+			TilesetSelector.RemoveText(0);
+
+		}
+
+		System.Console.WriteLine("AddTilesetSelectorOptions : Loading {0} tilesets.", options.Count);
+
+		foreach (var option in options) {
+			TilesetSelector.AppendText(option);
+			System.Console.WriteLine("Adding cell {0}", option);
+		}
+
+		TilesetSelector.InsertText(0, "(None)");
+		TilesetSelector.Active = 0;
+
+	}
+
+	protected void OnTilesetSelectorChanged(object sender, EventArgs e)
+	{
+		System.Console.WriteLine("Tileset Changed to {0}", TilesetSelector.ActiveText);
+		try
+		{
+
+			foreach (WindowUpdater wu in listeners)
+			{
+				wu.TilesetSelectionChanged(TilesetSelector.ActiveText);
+			}
+
+		}
+
+		catch (Exception exx)
+		{
+			System.Console.WriteLine("Setting tileset caused exception {0} for {1} ", exx.ToString(), TilesetSelector.ActiveText);
+		}
 	}
 }
