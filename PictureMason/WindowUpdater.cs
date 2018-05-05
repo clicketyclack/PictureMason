@@ -18,6 +18,7 @@
  * 
  */
 using System;
+using System.Drawing.Imaging;
 using System.Collections.Generic;
 using System.IO;
 using TileExchange.TileSetRepo;
@@ -103,7 +104,7 @@ namespace PictureMason
 
 				foreach (var win in update_targets)
 				{
-					win.SetOutputPixbuf(pixbuf);
+					win.SetInputPixbuf(pixbuf);
 				}
 
 			}
@@ -125,6 +126,13 @@ namespace PictureMason
 				var assembled_bitmap_pre = loaded_image.AssembleFragments();
 				writer.WriteBitmap(assembled_bitmap_pre, System.IO.Path.Combine("/tmp", "foo.png"));
 
+				MemoryStream ms = new MemoryStream ();
+
+				assembled_bitmap_pre.Save(ms, ImageFormat.Png);
+				ms.Position = 0;
+				var pixbuf = new Gdk.Pixbuf(ms); 
+
+				update_targets[0].SetOutputPixbuf(pixbuf);
 
 
 			}

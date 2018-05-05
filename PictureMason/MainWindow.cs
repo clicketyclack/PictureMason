@@ -85,11 +85,25 @@ public partial class MainWindow : Gtk.Window
 	/// Sets the output image, using a pixbuf.
 	/// </summary>
 	/// <param name="pixbuf">Pixbuf.</param>
-	internal void SetOutputPixbuf(Pixbuf pixbuf)
+	internal void SetInputPixbuf(Pixbuf pixbuf)
 	{
 		InputImageDisplay.Pixbuf = pixbuf;
 		InputImageDisplay.Show();
 	}
+
+
+	/// <summary>
+	/// Sets the output image, using a pixbuf.
+	/// </summary>
+	/// <param name="pixbuf">Pixbuf.</param>
+	public void SetOutputPixbuf(Pixbuf pixbuf)
+	{
+		//.Pixbuf = pixbuf;
+		PreviewImageDisplay.Pixbuf = pixbuf;
+		PreviewImageDisplay.Show();
+	}
+
+
 
 	public void SetTilesetSelectorOptions(List<String> options)
 	{
