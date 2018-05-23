@@ -33,6 +33,10 @@ namespace PictureMason
 			win.RegisterUpdateWatcher(update_watcher);
 			update_watcher.AddUpdateTarget(win);
 
+
+			win.ResizeToFitScreen();
+			win.CheckResize();
+			win.ResetDivisorPositions();
 			win.Show();
 			Application.Run();
 		}

@@ -21,6 +21,7 @@ using System;
 using Gtk;
 using System.Collections.Generic;
 
+
 using PictureMason;
 using Gdk;
 
@@ -64,13 +65,17 @@ public partial class MainWindow : Gtk.Window
 		var name = aswidget.Filename;
 		System.Console.WriteLine("Setting preview image from {0} with event {1} to filename {2}", sender.ToString(), e.ToString(), name);
 
-		try {
+		try
+		{
 
-			foreach (WindowUpdater wu in listeners) {
+			foreach (WindowUpdater wu in listeners)
+			{
 				wu.InputImageSelectionChanged(name);
 			}
 
-		} catch (Exception exx) {
+		}
+		catch (Exception exx)
+		{
 			System.Console.WriteLine("Setting image caused exception {0} for {1} ", exx.ToString(), name);
 		}
 
@@ -78,7 +83,7 @@ public partial class MainWindow : Gtk.Window
 
 	internal void RegisterUpdateWatcher(WindowUpdater update_watcher)
 	{
-		listeners.Add(update_watcher);	
+		listeners.Add(update_watcher);
 	}
 
 	/// <summary>
@@ -118,7 +123,8 @@ public partial class MainWindow : Gtk.Window
 
 		System.Console.WriteLine("AddTilesetSelectorOptions : Loading {0} tilesets.", options.Count);
 
-		foreach (var option in options) {
+		foreach (var option in options)
+		{
 			TilesetSelector.AppendText(option);
 			System.Console.WriteLine("Adding cell {0}", option);
 		}
@@ -126,6 +132,35 @@ public partial class MainWindow : Gtk.Window
 		TilesetSelector.InsertText(0, "(None)");
 		TilesetSelector.Active = 0;
 
+	}
+
+	/// <summary>
+	/// Resize main window to fill out a little more of the screen.
+	/// 
+	/// </summary>
+	public void ResizeToFitScreen()
+	{
+		var screen = Screen.ActiveWindow.Screen;
+		var width = screen.Width;
+		var height = screen.Height;
+
+		Resize((int)(width * 0.90) - 50, (int)(height * 0.90) - 50);
+
+	}
+
+	/// <summary>
+	/// Resets the divisor positions. This usually means that the message box shrinks to display
+	/// the images, and the divisor between both images is set at 50%.
+	/// </summary>
+	public void ResetDivisorPositions()
+	{
+		int pane_w = 0;
+		int pane_h = 0;
+
+		GetSize(out pane_w, out pane_h);
+
+		TabsheetMsgboxDividor.Position = (int)(pane_h * 0.95) - 10;
+		WorkbenchHPaneD.Position = pane_w / 2;
 	}
 
 	protected void OnTilesetSelectorChanged(object sender, EventArgs e)
@@ -145,5 +180,10 @@ public partial class MainWindow : Gtk.Window
 		{
 			System.Console.WriteLine("Setting tileset caused exception {0} for {1} ", exx.ToString(), TilesetSelector.ActiveText);
 		}
+	}
+
+	protected void OnInputImageZoomin(object sender, EventArgs e)
+	{
+		ResetDivisorPositions();
 	}
 }

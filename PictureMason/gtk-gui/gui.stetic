@@ -30,6 +30,7 @@
         <property name="Type">Action</property>
         <property name="Label" translatable="yes" />
         <property name="StockId">gtk-zoom-in</property>
+        <signal name="Activated" handler="OnInputImageZoomin" />
       </action>
       <action id="zoomOutAction">
         <property name="Type">Action</property>
@@ -139,10 +140,11 @@
           </packing>
         </child>
         <child>
-          <widget class="Gtk.VPaned" id="MainVPaneD">
+          <widget class="Gtk.VPaned" id="TabsheetMsgboxDividor">
             <property name="MemberName" />
             <property name="CanFocus">True</property>
             <property name="Position">646</property>
+            <property name="BorderWidth">4</property>
             <child>
               <widget class="Gtk.Notebook" id="MainTabNotebook">
                 <property name="MemberName" />
@@ -334,12 +336,13 @@
               </packing>
             </child>
             <child>
-              <widget class="Gtk.ScrolledWindow" id="GtkScrolledWindow2">
+              <widget class="Gtk.ScrolledWindow" id="MessageBoxPane">
                 <property name="MemberName" />
                 <property name="ShadowType">In</property>
                 <child>
                   <widget class="Gtk.TextView" id="MessagesBox">
                     <property name="MemberName" />
+                    <property name="HeightRequest">32</property>
                     <property name="ShowScrollbars">True</property>
                     <property name="Text" translatable="yes" />
                   </widget>

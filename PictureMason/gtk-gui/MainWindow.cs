@@ -35,7 +35,7 @@ public partial class MainWindow
 
 	private global::Gtk.MenuBar ProgramMenubar;
 
-	private global::Gtk.VPaned MainVPaneD;
+	private global::Gtk.VPaned TabsheetMsgboxDividor;
 
 	private global::Gtk.Notebook MainTabNotebook;
 
@@ -75,7 +75,7 @@ public partial class MainWindow
 
 	private global::Gtk.Label ExportTab;
 
-	private global::Gtk.ScrolledWindow GtkScrolledWindow2;
+	private global::Gtk.ScrolledWindow MessageBoxPane;
 
 	private global::Gtk.TextView MessagesBox;
 
@@ -144,11 +144,12 @@ public partial class MainWindow
 		w2.Position = 0;
 		w2.Expand = false;
 		// Container child OuterVBox.Gtk.Box+BoxChild
-		this.MainVPaneD = new global::Gtk.VPaned();
-		this.MainVPaneD.CanFocus = true;
-		this.MainVPaneD.Name = "MainVPaneD";
-		this.MainVPaneD.Position = 646;
-		// Container child MainVPaneD.Gtk.Paned+PanedChild
+		this.TabsheetMsgboxDividor = new global::Gtk.VPaned();
+		this.TabsheetMsgboxDividor.CanFocus = true;
+		this.TabsheetMsgboxDividor.Name = "TabsheetMsgboxDividor";
+		this.TabsheetMsgboxDividor.Position = 646;
+		this.TabsheetMsgboxDividor.BorderWidth = ((uint)(4));
+		// Container child TabsheetMsgboxDividor.Gtk.Paned+PanedChild
 		this.MainTabNotebook = new global::Gtk.Notebook();
 		this.MainTabNotebook.CanFocus = true;
 		this.MainTabNotebook.Name = "MainTabNotebook";
@@ -284,20 +285,21 @@ public partial class MainWindow
 		this.ExportTab.LabelProp = global::Mono.Unix.Catalog.GetString("Export");
 		this.MainTabNotebook.SetTabLabel(w22, this.ExportTab);
 		this.ExportTab.ShowAll();
-		this.MainVPaneD.Add(this.MainTabNotebook);
-		global::Gtk.Paned.PanedChild w23 = ((global::Gtk.Paned.PanedChild)(this.MainVPaneD[this.MainTabNotebook]));
+		this.TabsheetMsgboxDividor.Add(this.MainTabNotebook);
+		global::Gtk.Paned.PanedChild w23 = ((global::Gtk.Paned.PanedChild)(this.TabsheetMsgboxDividor[this.MainTabNotebook]));
 		w23.Resize = false;
-		// Container child MainVPaneD.Gtk.Paned+PanedChild
-		this.GtkScrolledWindow2 = new global::Gtk.ScrolledWindow();
-		this.GtkScrolledWindow2.Name = "GtkScrolledWindow2";
-		this.GtkScrolledWindow2.ShadowType = ((global::Gtk.ShadowType)(1));
-		// Container child GtkScrolledWindow2.Gtk.Container+ContainerChild
+		// Container child TabsheetMsgboxDividor.Gtk.Paned+PanedChild
+		this.MessageBoxPane = new global::Gtk.ScrolledWindow();
+		this.MessageBoxPane.Name = "MessageBoxPane";
+		this.MessageBoxPane.ShadowType = ((global::Gtk.ShadowType)(1));
+		// Container child MessageBoxPane.Gtk.Container+ContainerChild
 		this.MessagesBox = new global::Gtk.TextView();
+		this.MessagesBox.HeightRequest = 32;
 		this.MessagesBox.Name = "MessagesBox";
-		this.GtkScrolledWindow2.Add(this.MessagesBox);
-		this.MainVPaneD.Add(this.GtkScrolledWindow2);
-		this.OuterVBox.Add(this.MainVPaneD);
-		global::Gtk.Box.BoxChild w26 = ((global::Gtk.Box.BoxChild)(this.OuterVBox[this.MainVPaneD]));
+		this.MessageBoxPane.Add(this.MessagesBox);
+		this.TabsheetMsgboxDividor.Add(this.MessageBoxPane);
+		this.OuterVBox.Add(this.TabsheetMsgboxDividor);
+		global::Gtk.Box.BoxChild w26 = ((global::Gtk.Box.BoxChild)(this.OuterVBox[this.TabsheetMsgboxDividor]));
 		w26.PackType = ((global::Gtk.PackType)(1));
 		w26.Position = 1;
 		this.Add(this.OuterVBox);
@@ -309,6 +311,7 @@ public partial class MainWindow
 		this.DefaultHeight = 891;
 		this.Show();
 		this.DeleteEvent += new global::Gtk.DeleteEventHandler(this.OnDeleteEvent);
+		this.zoomInAction.Activated += new global::System.EventHandler(this.OnInputImageZoomin);
 		this.helpAction.Activated += new global::System.EventHandler(this.ShowAbout);
 		this.quitAction.Activated += new global::System.EventHandler(this.QuitRequested);
 		this.MenuoptionAbout.Activated += new global::System.EventHandler(this.ShowAbout);
