@@ -29,6 +29,7 @@ public partial class MainWindow : Gtk.Window
 {
 
 	private List<WindowUpdater> listeners;
+	private bool needs_initial_divisors_done = false;
 
 	public MainWindow() : base(Gtk.WindowType.Toplevel)
 	{
@@ -138,7 +139,7 @@ public partial class MainWindow : Gtk.Window
 	/// Resize main window to fill out a little more of the screen.
 	/// 
 	/// </summary>
-	public void ResizeToFitScreen()
+	public void InitialResizeToFitScreen()
 	{
 		var screen = Screen.ActiveWindow.Screen;
 		var width = screen.Width;
@@ -146,21 +147,33 @@ public partial class MainWindow : Gtk.Window
 
 		Resize((int)(width * 0.90) - 50, (int)(height * 0.90) - 50);
 
+		needs_initial_divisors_done = true;
+		System.Console.WriteLine("Initial window resize done.");
 	}
 
 	/// <summary>
 	/// Resets the divisor positions. This usually means that the message box shrinks to display
 	/// the images, and the divisor between both images is set at 50%.
 	/// </summary>
-	public void ResetDivisorPositions()
+	public void InitialDivisorPositions()
 	{
 		int pane_w = 0;
 		int pane_h = 0;
 
 		GetSize(out pane_w, out pane_h);
 
-		TabsheetMsgboxDividor.Position = (int)(pane_h * 0.95) - 10;
-		WorkbenchHPaneD.Position = pane_w / 2;
+		if (needs_initial_divisors_done && pane_w < 1000)
+		{
+			// We were called too early.
+			return;
+		}
+
+		var msg_div_position = (int)(pane_h * 0.90) - 25;
+		var middle_split_position = pane_w / 2;
+		TabsheetMsgboxDividor.Position = msg_div_position;
+		WorkbenchHPaneD.Position = middle_split_position;
+
+		needs_initial_divisors_done = false;
 	}
 
 	protected void OnTilesetSelectorChanged(object sender, EventArgs e)
@@ -184,6 +197,24 @@ public partial class MainWindow : Gtk.Window
 
 	protected void OnInputImageZoomin(object sender, EventArgs e)
 	{
-		ResetDivisorPositions();
+		InitialDivisorPositions();
+	}
+
+	protected void OnTabExpose(object o, ExposeEventArgs args)
+	{
+		if (needs_initial_divisors_done)
+		{
+			InitialDivisorPositions();
+		}
+	}
+
+	/// <summary>
+	/// Handle menu event for 'File -> Reset layout'.
+	/// </summary>
+	/// <param name="sender">Sender.</param>
+	/// <param name="e">EventArgs.</param>
+	protected void OnResetLayout(object sender, EventArgs e)
+	{
+		InitialDivisorPositions();
 	}
 }

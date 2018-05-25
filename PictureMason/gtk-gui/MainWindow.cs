@@ -31,6 +31,14 @@ public partial class MainWindow
 
 	private global::Gtk.Action MenuoptionAbout;
 
+	private global::Gtk.Action ResetLayoutAction;
+
+	private global::Gtk.Action OnResetLayoutAction;
+
+	private global::Gtk.Action clearAction;
+
+	private global::Gtk.Action clearAction1;
+
 	private global::Gtk.VBox OuterVBox;
 
 	private global::Gtk.MenuBar ProgramMenubar;
@@ -126,6 +134,17 @@ public partial class MainWindow
 		this.MenuoptionAbout = new global::Gtk.Action("MenuoptionAbout", global::Mono.Unix.Catalog.GetString("About"), null, "gtk-about");
 		this.MenuoptionAbout.ShortLabel = global::Mono.Unix.Catalog.GetString("About");
 		w1.Add(this.MenuoptionAbout, null);
+		this.ResetLayoutAction = new global::Gtk.Action("ResetLayoutAction", global::Mono.Unix.Catalog.GetString("Reset layout"), null, null);
+		this.ResetLayoutAction.ShortLabel = global::Mono.Unix.Catalog.GetString("Reset layout");
+		w1.Add(this.ResetLayoutAction, null);
+		this.OnResetLayoutAction = new global::Gtk.Action("OnResetLayoutAction", global::Mono.Unix.Catalog.GetString("OnResetLayout"), null, null);
+		this.OnResetLayoutAction.ShortLabel = global::Mono.Unix.Catalog.GetString("OnResetLayout");
+		w1.Add(this.OnResetLayoutAction, null);
+		this.clearAction = new global::Gtk.Action("clearAction", null, null, "gtk-clear");
+		w1.Add(this.clearAction, null);
+		this.clearAction1 = new global::Gtk.Action("clearAction1", global::Mono.Unix.Catalog.GetString("_Reset layout"), null, "gtk-clear");
+		this.clearAction1.ShortLabel = global::Mono.Unix.Catalog.GetString("_Reset layout");
+		w1.Add(this.clearAction1, null);
 		this.UIManager.InsertActionGroup(w1, 0);
 		this.AddAccelGroup(this.UIManager.AccelGroup);
 		this.Name = "MainWindow";
@@ -133,10 +152,11 @@ public partial class MainWindow
 		this.WindowPosition = ((global::Gtk.WindowPosition)(4));
 		// Container child MainWindow.Gtk.Container+ContainerChild
 		this.OuterVBox = new global::Gtk.VBox();
+		this.OuterVBox.Events = ((global::Gdk.EventMask)(32768));
 		this.OuterVBox.Name = "OuterVBox";
 		this.OuterVBox.Spacing = 6;
 		// Container child OuterVBox.Gtk.Box+BoxChild
-		this.UIManager.AddUiFromString(@"<ui><menubar name='ProgramMenubar'><menu name='FileAction' action='FileAction'><menuitem name='quitAction' action='quitAction'/></menu><menu name='MainmenuHelpAction' action='MainmenuHelpAction'><menuitem name='MenuoptionAbout' action='MenuoptionAbout'/></menu></menubar></ui>");
+		this.UIManager.AddUiFromString(@"<ui><menubar name='ProgramMenubar'><menu name='FileAction' action='FileAction'><menuitem name='clearAction1' action='clearAction1'/><menuitem name='quitAction' action='quitAction'/></menu><menu name='MainmenuHelpAction' action='MainmenuHelpAction'><menuitem name='MenuoptionAbout' action='MenuoptionAbout'/></menu></menubar></ui>");
 		this.ProgramMenubar = ((global::Gtk.MenuBar)(this.UIManager.GetWidget("/ProgramMenubar")));
 		this.ProgramMenubar.Name = "ProgramMenubar";
 		this.OuterVBox.Add(this.ProgramMenubar);
@@ -315,7 +335,9 @@ public partial class MainWindow
 		this.helpAction.Activated += new global::System.EventHandler(this.ShowAbout);
 		this.quitAction.Activated += new global::System.EventHandler(this.QuitRequested);
 		this.MenuoptionAbout.Activated += new global::System.EventHandler(this.ShowAbout);
+		this.clearAction1.Activated += new global::System.EventHandler(this.OnResetLayout);
 		this.InputImageFileSelector.SelectionChanged += new global::System.EventHandler(this.OnInputImageFileSelectorSelectionChanged);
 		this.TilesetSelector.Changed += new global::System.EventHandler(this.OnTilesetSelectorChanged);
+		this.WorkbenchTab.ExposeEvent += new global::Gtk.ExposeEventHandler(this.OnTabExpose);
 	}
 }

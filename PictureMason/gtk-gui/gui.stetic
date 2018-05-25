@@ -112,6 +112,28 @@
         <property name="StockId">gtk-about</property>
         <signal name="Activated" handler="ShowAbout" after="yes" />
       </action>
+      <action id="ResetLayoutAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">Reset layout</property>
+        <property name="ShortLabel" translatable="yes">Reset layout</property>
+      </action>
+      <action id="OnResetLayoutAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">OnResetLayout</property>
+        <property name="ShortLabel" translatable="yes">OnResetLayout</property>
+      </action>
+      <action id="clearAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes" />
+        <property name="StockId">gtk-clear</property>
+      </action>
+      <action id="clearAction1">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">_Reset layout</property>
+        <property name="ShortLabel" translatable="yes">_Reset layout</property>
+        <property name="StockId">gtk-clear</property>
+        <signal name="Activated" handler="OnResetLayout" />
+      </action>
     </action-group>
     <property name="MemberName" />
     <property name="Title" translatable="yes">MainWindow</property>
@@ -120,12 +142,14 @@
     <child>
       <widget class="Gtk.VBox" id="OuterVBox">
         <property name="MemberName" />
+        <property name="Events">StructureMask</property>
         <property name="Spacing">6</property>
         <child>
           <widget class="Gtk.MenuBar" id="ProgramMenubar">
             <property name="MemberName" />
             <node name="ProgramMenubar" type="Menubar">
               <node type="Menu" action="FileAction">
+                <node type="Menuitem" action="clearAction1" />
                 <node type="Menuitem" action="quitAction" />
               </node>
               <node type="Menu" action="MainmenuHelpAction">
@@ -286,6 +310,7 @@
                   <widget class="Gtk.Label" id="WorkbenchTab">
                     <property name="MemberName" />
                     <property name="LabelProp" translatable="yes">Workbench</property>
+                    <signal name="ExposeEvent" handler="OnTabExpose" />
                   </widget>
                   <packing>
                     <property name="type">tab</property>
